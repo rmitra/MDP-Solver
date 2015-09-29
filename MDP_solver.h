@@ -70,7 +70,7 @@ void MDP::load_MDP_data(char* filename) {
 	fp.close();
 
 	/* Initialising V's and P's*/
-	V = vector <double>(S,0.0f);
+	V = vector <double>(S,0.0);
 	P = vector <int>(S);
 }
 
@@ -104,7 +104,7 @@ void MDP::display_MDP() {
 	// cout<<"Value Functions\n";
 
 	for(int s = 0; s < S; s++)
-		cout<<V[s]<<" "<<P[s]<<"\n";
+		printf("%lf %d\n",V[s],P[s]);
 
 	// cout<<"Gamma "<<Gamma<<"\n";
 }
@@ -113,7 +113,7 @@ double MDP::compute_max_value(int s) {
 	double max_value = -9999999.0;
 
 	for(int a = 0; a < A; a++) {
-		double exp_value = 0;
+		double exp_value = 0.0;
 		
 		for (int sp = 0; sp < S; sp++){
 			exp_value = exp_value + T[s][a][sp] * (R[s][a][sp] + Gamma * V[sp]);
@@ -136,7 +136,7 @@ void MDP::value_iterations(double eph) {
 	double max_diff;
 	int itr = 0;
 	while (!converged) {
-		max_diff = -1.0f;
+		max_diff = -1.0;
 
 		for (int s = 0; s < S; s++) {
 			double old_value = V[s];
@@ -148,7 +148,7 @@ void MDP::value_iterations(double eph) {
 		}
 
 		// cout<<"max diff "<<max_diff<<"\n";
-		if (max_diff < eph) {
+		if (max_diff <= eph) {
 			converged = true;
 		}			
 
